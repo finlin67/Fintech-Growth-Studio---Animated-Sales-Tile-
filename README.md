@@ -1,11 +1,22 @@
-<div align="center">
+# Fintech Growth Animated Sales Tile
 
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
+This project contains a high-fidelity recreation of a fintech landing page featuring a complex, interactive data visualization component (`FinServTile`).
 
-  <h1>Built with AI Studio</h2>
+## Description
+The core focus is the `FinServTile` component: a self-contained, 600x600 responsive React component. It features orbiting rings, floating data cards with organic motion, and SVG chart animations. The component uses Framer Motion for high-performance animations (including draggability) and Tailwind CSS for precise styling, perfectly mimicking the provided design spec.
 
-  <p>The fastest path from prompt to production with Gemini.</p>
+## Tech Stack
+*   **React 18+**
+*   **TypeScript**
+*   **Tailwind CSS** (via CDN for portability)
+*   **Framer Motion** (Animation & Drag physics)
+*   **Lucide React** (Icons)
 
-  <a href="https://aistudio.google.com/apps">Start building</a>
+## Usage
+1.  Navigate to `App.tsx` to see the full landing page context.
+2.  The isolated component is located at `components/FinServTile.tsx`.
+3.  The tile is fully responsive but optimized for a square aspect ratio. It fits into any container but works best when given a max-width of around 600px.
+4.  Try dragging the floating cards in the visualization!
 
-</div>
+## App Name
+Fintech Growth Studio
