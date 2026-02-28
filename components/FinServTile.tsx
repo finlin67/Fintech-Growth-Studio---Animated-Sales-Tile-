@@ -1,7 +1,7 @@
 'use client';
 
-import React from "react";
-import { motion, HTMLMotionProps } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Network,
   ShieldCheck,
@@ -20,6 +20,36 @@ const COLORS = {
 };
 
 export default function FinServTile() {
+  // Real-time data simulation state
+  const [pipelineCount, setPipelineCount] = useState(2435);
+  const [aumValue, setAumValue] = useState(4.21);
+
+  // Simulate Pipeline Updates (Frequent, integer changes)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setPipelineCount((prev) => {
+        // Randomly add between -5 and +12 to simulate upward trend
+        const variance = Math.floor(Math.random() * 18) - 5;
+        return prev + variance;
+      });
+    }, 2800); // Updates every 2.8s
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Simulate AUM Updates (Slower, decimal changes)
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setAumValue((prev) => {
+        // Random variance between -0.02 and +0.05
+        const variance = (Math.random() * 0.07) - 0.02;
+        return Number((prev + variance).toFixed(2));
+      });
+    }, 4500); // Updates every 4.5s
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className="relative w-full h-full max-w-[600px] max-h-[600px] aspect-square mx-auto perspective-1000">
       {/* Container for the entire interactive scene */}
@@ -130,7 +160,16 @@ export default function FinServTile() {
             Monthly Active Pipeline
           </p>
           <div className="flex items-baseline gap-2">
-            <h3 className="text-white text-3xl sm:text-4xl font-black">2.4k</h3>
+            <h3 className="text-white text-3xl sm:text-4xl font-black tabular-nums">
+                <motion.span
+                    key={pipelineCount}
+                    initial={{ color: "#10b981", scale: 1.1 }}
+                    animate={{ color: "#ffffff", scale: 1 }}
+                    transition={{ duration: 0.6 }}
+                >
+                    {pipelineCount.toLocaleString()}
+                </motion.span>
+            </h3>
             <span className="text-[#10b981] text-sm font-bold">+18%</span>
           </div>
         </FloatingCard>
@@ -167,7 +206,18 @@ export default function FinServTile() {
           <p className="text-slate-400 text-[10px] font-medium uppercase tracking-widest mb-2">
             Global AUM Growth
           </p>
-          <p className="text-white text-3xl font-bold mb-1">$4.2B+</p>
+          <p className="text-white text-3xl font-bold mb-1 tabular-nums">
+            $
+            <motion.span
+                key={aumValue}
+                initial={{ color: "#10b981" }}
+                animate={{ color: "#ffffff" }}
+                transition={{ duration: 0.8 }}
+            >
+                {aumValue}
+            </motion.span>
+            B+
+          </p>
           <div className="flex items-center gap-1 text-[#10b981] text-xs font-bold">
             <TrendingUp className="w-3 h-3" /> +52% Growth
           </div>
@@ -229,11 +279,11 @@ export default function FinServTile() {
 }
 
 // Interface extends Framer Motion props to avoid 'any' and ensure type safety
-interface FloatingCardProps extends HTMLMotionProps<"div"> {
+type FloatingCardProps = React.ComponentProps<typeof motion.div> & {
   children?: React.ReactNode;
   floatDuration?: number;
   floatDelay?: number;
-}
+};
 
 // Helper component for the glass cards
 function FloatingCard({

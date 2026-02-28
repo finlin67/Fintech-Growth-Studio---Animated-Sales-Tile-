@@ -6,16 +6,10 @@ import FinServTile from './components/FinServTile';
 
 export default function App() {
   return (
-    <div className="bg-[#020617] min-h-screen text-slate-100 font-sans selection:bg-[#0b8aad]/30 overflow-hidden flex flex-col relative">
+    <div className="bg-[#020617] min-h-screen text-slate-100 font-sans overflow-hidden flex flex-col relative">
       
-      {/* Background Grid Pattern */}
-      <div 
-        className="absolute inset-0 z-0 pointer-events-none opacity-30"
-        style={{
-            backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0)`,
-            backgroundSize: '32px 32px'
-        }}
-      />
+      {/* Background Grid Pattern - Using CSS class from globals.css */}
+      <div className="absolute inset-0 z-0 pointer-events-none opacity-30 bg-grid-pattern" />
 
       {/* Header */}
       <header className="flex items-center justify-between px-6 md:px-8 py-3 bg-[#020617]/80 backdrop-blur-md border-b border-slate-800/50 z-50 shrink-0 sticky top-0">
